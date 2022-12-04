@@ -4,7 +4,7 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const {userJoin,getCurrentUser, userleave,getRoomUsers} = require('./utils/users');
+const {userJoin,getCurrentUser, userleave,getRoomUsers,userResto} = require('./utils/users');
 const { formatMessage } = require('./utils/message');
 const io = new Server(server);
 
@@ -18,7 +18,7 @@ server.listen(3000, () => {
 //let users = [];
 
 io.on('connection', (socket) => {
-    socket.on("join room", ({username,room,lat,lng}) =>{
+    socket.on("join room", ({username,room,lat,lng,p}) =>{
     const user = userJoin(socket.id,username, room,lat,lng);
     // socket.on("position",({lat,lng}) =>{
     //   const latitude =lat;
@@ -27,7 +27,9 @@ io.on('connection', (socket) => {
     
     //io.emit('new user', users);
     socket.join(user.room);
-   
+    socket.on("resto",({username,r,latr,lngr})=>{
+      const resto = userResto(socket.id,username,r,latr,lngr);
+    });
     
     //message destiné à la personne qui se connecte
     socket.emit('message', formatMessage(BotName, "bienvenu à toi"));
@@ -42,10 +44,6 @@ io.on('connection', (socket) => {
         room: user.room,
         users: getRoomUsers(user.room),
       });
-
-  });
-  socket.on("resto",({username,latr,lngr})=>{
-    const resto = userResto(socket.id,username,latr,lngr);
 
   });
     

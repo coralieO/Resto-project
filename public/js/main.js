@@ -2,7 +2,6 @@ const discussion = document.getElementById('Chat');
 const divMessage = document.getElementById('msglog');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('onlineUsersSelector');
-const listeRestos = document.getElementById('listeRestos');
 
 
 // Get username and room from URL
@@ -21,6 +20,28 @@ socket.on('message', message => {
     divMessage.scrollTop = divMessage.scrollHeight;
 })
 
+
+let mapOptions = {
+    center:[48.84558086369290,2.3121598422840486],
+    zoom:5
+}
+
+
+let map = new L.map('map' , mapOptions);
+
+let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+map.addLayer(layer);
+var redIcon = L.icon({
+    iconUrl: 'img/broche-de-localisation.png',
+    iconSize:     [38, 38], // size of the icon
+});
+
+var darkIcon = L.icon({
+    iconUrl: 'img/maps-and-flags.png',
+    iconSize:     [38, 38], // size of the icon
+});
+//resto
+
 function success(pos) {
     var maPosition = pos.coords;
     var lat = maPosition.latitude;
@@ -38,17 +59,55 @@ function success(pos) {
 navigator.geolocation.getCurrentPosition(success);
 
 
-var value = listeRestos.value ;
+//var value = listeRestos.value ;
 
-console.log(value)
-if (value = "Coréen"){
-    var latr = 48.84558086369295;
-    var lngr= 2.3121598422840486;
-    var color = '#ff6f7d';
-    socket.emit('resto',{username,latr,lngr})
-    resto =new L.Marker([latr,lngr]).addTo(map);
+// function changeResto(id){
+//     const index = restos.findIndex(user => user.id === id);
 
+//     if (index !== -1) {
+//       return restos.splice(index, 1)[0];
+//     }
+// }
+function update() {
+    const listeRestos = document.getElementById('listeRestos');
+    var value = listeRestos.options[listeRestos.selectedIndex].value
+
+    console.log(value)
+    if (value == "Coréen"){
+        var latr = 48.84558086369295;
+        var lngr= 2.3121598422840486;
+        var r= "Coréen";
+        var color = '#ff6f7d';
+        console.log('1')
+
+        socket.emit('resto',{username,r,latr,lngr})
+        resto =new L.Marker([latr,lngr]).addTo(map);
+
+    }
+    if (value == "Africain"){
+        var latr = 48.865364034631384;
+        var lngr= 2.3776820520705555;
+        var color = '#2bfafa';
+        var r= "Africain";
+        console.log('2')
+
+        socket.emit('resto',{username,r,latr,lngr})
+        resto =new L.Marker([latr,lngr]).addTo(map);
+    }
+    if (value == "Mexicain"){
+        var latr = 48.866538452030525;
+        var lngr= 2.370051171194163;
+        var color = '#009082';
+        var r= "Mexicain";
+        console.log('3');
+
+        socket.emit('resto',{username,r,latr,lngr})
+        resto =new L.Marker([latr,lngr]).addTo(map);
+    }
+    
 }
+
+
 
 
 
@@ -122,26 +181,6 @@ function outputUsers(users) {
 
 
 
-let mapOptions = {
-    center:[48.84558086369290,2.3121598422840486],
-    zoom:5
-}
-
-
-let map = new L.map('map' , mapOptions);
-
-let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-map.addLayer(layer);
-var redIcon = L.icon({
-    iconUrl: 'img/broche-de-localisation.png',
-    iconSize:     [38, 38], // size of the icon
-});
-
-var darkIcon = L.icon({
-    iconUrl: 'img/maps-and-flags.png',
-    iconSize:     [38, 38], // size of the icon
-});
-//resto
 var positions =[
     {
         "name": "fifi",
@@ -150,12 +189,12 @@ var positions =[
     },
     {   
         "name":"coco",
-        "resto":{"lieu":"Africain","lat": 48.865364034631384,"lng":2.3776820520705555,'color': '#2bfafa' },
+        //"resto":{"lieu":"Africain","lat": 48.865364034631384,"lng":2.3776820520705555,'color': '#2bfafa' },
         "boulot":{"lieu":"LCL","lat": 48.8710258641749,"lng":2.361178393354292},
     },
    {
         "name": "dona",
-        "resto":{"lieu":"Mexicain","lat": 48.866538452030525,"lng": 2.370051171194163,'color': '#009082' },
+        //"resto":{"lieu":"Mexicain","lat": 48.866538452030525,"lng": 2.370051171194163,'color': '#009082' },
         "boulot":{"lieu":"ALLIANZ","lat": 48.86763662590795,"lng":2.35532819988727 }
     }
 ]

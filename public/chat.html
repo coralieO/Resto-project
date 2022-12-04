@@ -114,9 +114,10 @@
         <div class="col-12 col-md-8 chat-form-container">
             <div class="col-12 col-md-4">
                 <label for="listeRestos">Les restos:</label>
-                <select class="form-control" id="listeRestos">
+                <select class="form-control" id="listeRestos" onChange="update()">
+                    <option value="">Restos</option>
                     <option value="Coréen">Coréen</option>
-                    <option value="Africain" >Africain</option>
+                    <option value="Africain">Africain</option>
                     <option value="Mexicain">Mexicain</option>
                 </select>
             </div>

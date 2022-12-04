@@ -7,12 +7,14 @@ function userJoin(id,username,room,latitude,longitude){
     users.push(user);
     return user;
 }
-function userResto(id,username,latr,lngr){
-    const userResto = {id,username,latr,lngr};
+function userResto(id,username,r,latr,lngr){
+    const userResto = {id,username,r,latr,lngr};
     console.log(userResto)
-    users.push(userResto);
+    restos.push(userResto);
     return userResto;
 }
+
+
 
 
 //récuperer un utilisateur
@@ -40,5 +42,7 @@ module.exports = {
     userJoin,
     getCurrentUser,
     userleave,
-    getRoomUsers
+    getRoomUsers,
+    userResto
+    // changeResto
 }
