@@ -68,6 +68,16 @@ navigator.geolocation.getCurrentPosition(success);
 //       return restos.splice(index, 1)[0];
 //     }
 // }
+rdv = {"lieu":"tour eiffel","lat": 48.85849707026087,"lng": 2.294416910572021 }
+
+//Rendez-vous
+
+for(r in rdv){
+    latitude = rdv.lat
+    longitude = rdv.lng
+    new L.Marker([latitude,longitude],{icon: redIcon}).addTo(map);    
+}
+
 function update() {
     const listeRestos = document.getElementById('listeRestos');
     var value = listeRestos.options[listeRestos.selectedIndex].value
@@ -82,6 +92,19 @@ function update() {
 
         socket.emit('resto',{username,r,latr,lngr})
         resto =new L.Marker([latr,lngr]).addTo(map);
+             
+    
+        var r = new L.LatLng(latr,lngr);
+        var rdv = new L.LatLng(48.85849707026087, 2.294416910572021);
+        var point = [r, rdv];
+            console.log(rdv)
+        var firstpolyline = new L.Polyline(point, {
+            color: 'orange',
+            weight: 3,
+            opacity: 0.5,
+            smoothFactor: 1
+        });
+        firstpolyline.addTo(map);
 
     }
     if (value == "Africain"){
@@ -93,6 +116,18 @@ function update() {
 
         socket.emit('resto',{username,r,latr,lngr})
         resto =new L.Marker([latr,lngr]).addTo(map);
+           
+        var r = new L.LatLng(latr,lngr);
+        var rdv = new L.LatLng(48.85849707026087, 2.294416910572021);
+        var point = [r, rdv];
+            console.log(rdv)
+        var firstpolyline = new L.Polyline(point, {
+            color: 'purple',
+            weight: 3,
+            opacity: 0.5,
+            smoothFactor: 1
+        });
+        firstpolyline.addTo(map);
     }
     if (value == "Mexicain"){
         var latr = 48.866538452030525;
@@ -103,6 +138,18 @@ function update() {
 
         socket.emit('resto',{username,r,latr,lngr})
         resto =new L.Marker([latr,lngr]).addTo(map);
+           
+        var r = new L.LatLng(latr,lngr);
+        var rdv = new L.LatLng(48.85849707026087, 2.294416910572021);
+        var point = [r, rdv];
+            console.log(rdv)
+        var firstpolyline = new L.Polyline(point, {
+            color: 'red',
+            weight: 3,
+            opacity: 0.5,
+            smoothFactor: 1
+        });
+        firstpolyline.addTo(map);
     }
     
 }
@@ -198,15 +245,6 @@ var positions =[
         "boulot":{"lieu":"ALLIANZ","lat": 48.86763662590795,"lng":2.35532819988727 }
     }
 ]
-rdv = {"lieu":"tour eiffel","lat": 48.85849707026087,"lng": 2.294416910572021 }
-
-//Rendez-vous
-
-for(r in rdv){
-    latitude = rdv.lat
-    longitude = rdv.lng
-    new L.Marker([latitude,longitude],{icon: redIcon}).addTo(map);    
-}
 
 for(position in positions){
     for(i=0;i<Object.keys(positions).length;i++){
