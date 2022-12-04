@@ -35,7 +35,6 @@ io.on('connection', (socket) => {
     socket.broadcast
     .to(user.room)
     .emit('message', formatMessage(BotName, `${user.username} vient de rejoindre`) );
-
     // Send users and room info
     io.to(user.room).emit("roomUsers", {
         room: user.room,

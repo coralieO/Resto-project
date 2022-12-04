@@ -1,6 +1,7 @@
 const discussion = document.getElementById('Chat');
 const divMessage = document.getElementById('msglog');
 const roomName = document.getElementById('room-name');
+const restoChoisi = document.getElementById('resto');
 const userList = document.getElementById('onlineUsersSelector');
 
 
@@ -52,16 +53,6 @@ function success(pos) {
 }
 navigator.geolocation.getCurrentPosition(success);
 
-
-//var value = listeRestos.value ;
-
-// function changeResto(id){
-//     const index = restos.findIndex(user => user.id === id);
-
-//     if (index !== -1) {
-//       return restos.splice(index, 1)[0];
-//     }
-// }
 rdv = {"lieu":"tour eiffel","lat": 48.85849707026087,"lng": 2.294416910572021 }
 
 //Rendez-vous
@@ -115,6 +106,7 @@ socket.on('roomUsers', ({room,users}) => {
     outputUsers(users);
 })
 
+
 //calcul de distance
 function getDistance(lat1, lon1, lat2, lon2) {
     var R = 6371; // Radius of the earth in km
@@ -136,7 +128,8 @@ return deg * (Math.PI/180)
 
 distance =[]
 socket.on('restoUsers', ({room,users,restos}) => {
-       console.log(users)
+    // outputresto(restos);
+      console.log(restos)
        for (i=0;i<Object.keys(users).length;i++){
         lat =users[i].latitude
         lng =users[i].longitude
@@ -231,6 +224,15 @@ function outputUsers(users) {
     }`
    
   }
+
+//   function outputresto(restos) {
+//     restoChoisi.innerHTML =` {
+//         ${restos.map(resto=> `<h2>${resto.username}</h2>`)}
+//     }`
+    
+   
+//   }
+
 
 //Prompt the user before leave chat room
 // document.getElementById('leave-btn').addEventListener('click', () => {
