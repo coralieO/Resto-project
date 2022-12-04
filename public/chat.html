@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>chat</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css" />
+        <style>
+            #chatLog {
+                height: 300px;
+                background-color: #FFFFFF;
+                resize: none;
+            }
+
+            #onlineUsersSelector {
+                height: 300px;
+            }
+            a{
+                color: white;
+                text-decoration: none;
+            }
+            .message{
+                background-color: rgba(219, 140, 44, 0.454);
+                border-radius: 20px 20px 20px 20px;
+                width: 50%;
+                margin: 10px 0 10px 10px;
+            }
+            /* .message p{
+                margin-left: 20px;
+            }
+            #msglog{
+                margin-top: 20px;
+                border:solid 2px rgb(168, 163, 163);
+            } */
+            #msglog .message {
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: rgb(243, 184, 108);
+            border-radius: 5px;
+            overflow-wrap: break-word;
+            }
+
+        #msglog .message .meta {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--dark-color-b);
+            opacity: 0.7;
+            margin-bottom: 7px;
+        }
+
+        #msglog .message .meta span {
+            color: #777;
+        }
+        .chat-form-container {
+            padding: 20px 30px;
+            background-color: var(--dark-color-a);
+        }
+        #msglog, #map_container{
+        padding: 30px;
+        background-color: antiquewhite;
+        height: 60vh;
+        overflow-y: scroll;
+        }
+        #map_container{
+            width: 70%;
+            height: 70vh;
+            margin: 0 auto;
+
+        }
+        h3{
+            color: black;
+        }
+        #map{
+        margin: 0 auto;
+        height: 60vh;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="container mt-3 p-5">
+            <h2>chat</h2>
+            <form action="" id="Chat">
+                <div class="input-group-append">
+                    <a class="btn btn-success" href="index.html">Se déconnecter</a>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-8 chat-form-container">
+                        <div id="msglog" class="mb-2">
+                           
+                        </div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="chatMessageInput" placeholder="Ecris ton message">
+                            <div class="input-group-append">
+                                <button class="btn btn-success" id="chatMessageSend" >Envoyer</button>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+            
+            
+                <div class="col-12 col-md-4">
+                    <div >
+                        <h2><i class="fas fa-comments"></i> Room Name:</h2>
+                        <h3 id="room-name"></h3>
+                    </div>
+                    <label for="onlineUsers">Utilisateurs connectés</label>
+                    <select multiple class="form-control" id="onlineUsersSelector">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-8 chat-form-container">
+            <div class="col-12 col-md-4">
+                <label for="listeRestos">Les restos:</label>
+                <select class="form-control" id="listeRestos">
+                    <option value="Coréen">Coréen</option>
+                    <option value="Africain" >Africain</option>
+                    <option value="Mexicain">Mexicain</option>
+                </select>
+            </div>
+            <div id="map_container" class="mb-2">
+                <div id="map"></div>
+            </div>
+        </div>
+        </form>
+        <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+        integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
+        crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+        <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.79.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/main.js"></script>    
+
+        <!-- <script src="js/app.js"></script> -->
+    </body>
+</html>
